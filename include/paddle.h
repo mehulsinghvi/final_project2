@@ -16,31 +16,43 @@ class Paddle {
 public:
     Paddle(glm::vec2 &position, glm::vec2 &velocity, glm::vec2 &size, glm::vec2 &distance);
 
+    /**
+     * Draws the paddles on both sides on a "slider"
+     */
     void DrewPaddles();
 
     glm::vec2 GetPosition();
 
     /**
-     * This the getter for velocity vector of an atom
+     * This the getter for velocity vector of a ball
      * @return the velocity vector
      */
     glm::vec2 GetVelocity();
 
     /**
-     * This is the setter for position of an atom
+     * This is the setter for position of a ball
      * @param position
      */
     void SetPosition(glm::vec2 &position);
 
     /**
-     * This is the setter for velocity of an atom
+     * This is the setter for velocity of a ball
      * @param position
      */
     void SetVelocity(glm::vec2 &velocity);
 
+    /**
+     * Sliders -vertical to be controlled by the keys for both the players
+     * @param type
+     */
     void SlideRightPaddle(int type);
     void SlideLeftPaddle(int type);
 
+    /**
+     * Checks collisions with paddle on a slider and returns true for yes
+     * @param ball
+     * @return
+     */
     bool CheckCollisionWithPaddle(Pong_Ball &ball) const;
 
     const float KRadius = 10;

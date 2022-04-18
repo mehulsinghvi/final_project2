@@ -25,6 +25,7 @@ void CollisionLogic::UpdateState() {
                 all_balls.at(j) = curr_ball2;
             }
         }
+        PaddleCollisionUpdate(curr_ball);
         WallCollisionsUpdate(curr_ball);
         glm::vec2 curr_pos = curr_ball.getPosition();
         glm::vec2 curr_vel = curr_ball.getVelocity();
@@ -99,7 +100,7 @@ void CollisionLogic::PaddleCollisionUpdate(Pong_Ball &ball) const {
 //    }
 }
 
-void CollisionLogic::AddNewAtom(glm::vec2 position, glm::vec2 velocity) {
+void CollisionLogic::AddNewBall(glm::vec2 position, glm::vec2 velocity) {
     Pong_Ball idealAtom(position, velocity);
     all_balls.push_back(idealAtom);
 }
@@ -107,8 +108,6 @@ void CollisionLogic::AddNewAtom(glm::vec2 position, glm::vec2 velocity) {
 std::vector<Pong_Ball> CollisionLogic::GetAllBalls() const {
     return all_balls;
 }
-
-
 
     CollisionLogic::CollisionLogic() = default;
 }

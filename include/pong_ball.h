@@ -2,8 +2,8 @@
 // Created by mehul on 08-03-2022.
 //
 
-#ifndef IDEAL_GAS_IDEAL_ATOM_H
-#define IDEAL_GAS_IDEAL_ATOM_H
+#ifndef FINAL_PROJECT_PONG_BALL_H
+#define FINAL_PROJECT_PONG_BALL_H
 
 #include <glm/detail/type_vec2.hpp>
 #include <glm/vec2.hpp>
@@ -64,4 +64,4 @@ private:
 }
 
 
-#endif //IDEAL_GAS_IDEAL_ATOM_H
+#endif //FINAL_PROJECT_PONG_BALL_H

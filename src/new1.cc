@@ -11,7 +11,7 @@ GasContainer::GasContainer(const vec2& corner, const vec2& size) {
     box = ci::Rectf(corner, corner + size);
     for(int i = 0 ; i < 25; i++) {
         float randNum = rand()%((int) glm::min(size.x, size.y) + 1) + corner.x;
-        logic_.AddNewAtom(vec2(randNum,randNum), vec2(0.7, -0.9));
+        logic_.AddNewBall(vec2(randNum, randNum), vec2(0.7, -0.9));
     }
 
 }
