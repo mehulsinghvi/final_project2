@@ -14,7 +14,9 @@ namespace finalproject {
 
 class Paddle {
 public:
-    Paddle(glm::vec2 &position, glm::vec2 &velocity, glm::vec2 &size, glm::vec2 &distance);
+    Paddle(glm::vec2 &position, glm::vec2 &velocity, glm::vec2 &size, glm::vec2 &distance, float radius);
+
+    Paddle();
 
     /**
      * Draws the paddles on both sides on a "slider"
@@ -55,16 +57,16 @@ public:
      */
     bool CheckCollisionWithPaddle(Pong_Ball &ball) const;
 
-    const float KRadius = 10;
 
 private:
     glm::vec2 position_;
     glm::vec2 velocity_;
     glm::vec2 size_;
     glm::vec2 distance_;
-
+    float radius_;
     glm::vec2 position2_;
     glm::vec2 velocity2_;
+    glm::vec2 corner_;
 };
 }
 

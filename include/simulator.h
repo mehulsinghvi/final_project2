@@ -3,19 +3,21 @@
 #include "cinder/app/App.h"
 #include "cinder/app/RendererGl.h"
 #include "cinder/gl/gl.h"
-#include "new1.h"
+#include "collision_logic.h"
 
 namespace finalproject {
 
 /**
  * An app for visualizing the behavior of an ideal gas.
  */
-class IdealGasApp : public ci::app::App {
+class PongApp : public ci::app::App {
  public:
-  IdealGasApp();
+  PongApp();
 
   void draw() override;
   void update() override;
+  void keyDown(cinder::app::KeyEvent event) override;
+  void mouseDown(cinder::app::MouseEvent event) override;
 
   const int kWindowSize = 875;
   const int kMargin = 100;
@@ -23,7 +25,8 @@ class IdealGasApp : public ci::app::App {
   const int kSize2 = 300;
 
  private:
-  GasContainer container_;
+  CollisionLogic logic_;
+  ci::Rectf box_;
 };
 
 }  // namespace finalproject

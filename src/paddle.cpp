@@ -9,13 +9,15 @@
 
 namespace finalproject {
 
-Paddle::Paddle(glm::vec2 &position, glm::vec2 &velocity, glm::vec2 &size, glm::vec2 &distance) {
+Paddle::Paddle(glm::vec2 &position, glm::vec2 &velocity, glm::vec2 &size, glm::vec2 &distance, float radius) {
     position_ = position;
     velocity_ = velocity;
     size_ = size;
     distance_ = distance;
-    position2_ = position + distance;
+    position2_ = position + glm::vec2(distance.x - size.x, 0);
     velocity2_ = velocity;
+    radius_ = radius;
+    corner_ = position_;
 }
 
 void Paddle::DrewPaddles() {
@@ -25,7 +27,7 @@ void Paddle::DrewPaddles() {
     ci::gl::color(ci::Color("yellow"));
     ci::gl::drawStrokedRect(box);
 
-    ci::Rectf box2 = ci::Rectf(position_ + distance_, position_ + size_ + distance_);
+    ci::Rectf box2 = ci::Rectf(position2_, position2_ + size_);
     ci::gl::color(ci::Color("red"));
     ci::gl::drawSolidRect(box2);
     ci::gl::color(ci::Color("green"));
@@ -51,32 +53,32 @@ void Paddle::SetVelocity(glm::vec2 &velocity) {
 bool Paddle::CheckCollisionWithPaddle(finalproject::Pong_Ball &ball) const {
     glm::vec2 future_pos = ball.getPosition();
     future_pos += ball.getVelocity();
-    if (abs(future_pos.x - position_.x) <= KRadius && abs(future_pos.y - position_.y) <= KRadius) {
+    if (abs(future_pos.x - position_.x) <= radius_ && abs(future_pos.y - position_.y) <= radius_) {
         ball.UpdateAfterCollision(ball, 1);
     }
-    if (abs(future_pos.x - position2_.x) <= KRadius && abs(future_pos.y - position2_.y) <= KRadius) {
+    if (abs(future_pos.x - position2_.x) <= radius_ && abs(future_pos.y - position2_.y) <= radius_) {
         ball.UpdateAfterCollision(ball, 1);
     }
     return false;
 }
 
 void Paddle::SlideLeftPaddle(int type) {
-    if(type == 1) {
+    if(type == 1 && position_.y + size_.y < corner_.y + distance_.y) {
         position_ += velocity_;
     }
-    else {
+    if(type == 2 && position_.y > corner_.y ) {
         position_ -= velocity_;
     }
 }
 
 void Paddle::SlideRightPaddle(int type) {
-    if(type == 1) {
-        position2_ += velocity2_;
+    if(type == 1 && position2_.y + size_.y < corner_.y + distance_.y) {
+        position2_ += velocity_;
     }
-    else {
-        position2_ -= velocity2_;
+    if(type == 2 && position2_.y > corner_.y ) {
+        position2_ -= velocity_;
     }
 }
 
-
+    Paddle::Paddle() {}
 }

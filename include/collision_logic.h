@@ -7,6 +7,7 @@
 
 #include <vector>
 #include "pong_ball.h"
+#include "paddle.h"
 
 namespace finalproject {
     class CollisionLogic {
@@ -17,7 +18,7 @@ namespace finalproject {
          * @param corner is the vec required to draw rectangle
          * @param size of the rectangle
          */
-        CollisionLogic(glm::vec2 corner, glm::vec2 size);
+        CollisionLogic(glm::vec2 corner, glm::vec2 size, Paddle paddle);
 
         /**
          * Default empty constructor
@@ -41,6 +42,12 @@ namespace finalproject {
          * @return the vector of all the balls
          */
         std::vector<Pong_Ball> GetAllBalls() const;
+        Paddle GetPaddle() const;
+
+//        const glm::vec2 KMargin = glm::vec2(20,0);
+//        const glm::vec2 KVelocity = glm::vec2(10,0);
+//        const glm::vec2 KSize = glm::vec2(3,10);
+//        const glm::vec2 KDistance = glm::vec2(500,0);
 
     private:
         std::vector<Pong_Ball> all_balls;
@@ -50,6 +57,11 @@ namespace finalproject {
         glm::vec2 box_size_;
         // the radius of all balls
         float radius = 10;
+
+        Paddle paddle_;
+
+        size_t left_score_;
+        size_t right_score_;
 
         /**
          * This helper functions return false if the collision is actually happening and helps avoid infinite
@@ -66,7 +78,7 @@ namespace finalproject {
          * This function handles collisions with the wall and updates the velocity
          * @param atom to handles collision for
          */
-        void WallCollisionsUpdate(Pong_Ball& ball) const;
+        void WallCollisionsUpdate(Pong_Ball& ball);
 
         /**
          * This function handles collisions between two balls and updates the velocity of both atoms
