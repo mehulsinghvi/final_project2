@@ -8,19 +8,19 @@ namespace finalproject {
 
     Pong_Ball::Pong_Ball(glm::vec2 &position, glm::vec2 &velocity) : position_(position), velocity_(velocity) {}
 
-    glm::vec2 Pong_Ball::getPosition() {
+    glm::vec2 Pong_Ball::GetPosition() {
         return position_;
     }
 
-    glm::vec2 Pong_Ball::getVelocity() {
+    glm::vec2 Pong_Ball::GetVelocity() {
         return velocity_;
     }
 
-    void Pong_Ball::setPosition(glm::vec2 &position) {
+    void Pong_Ball::SetPosition(glm::vec2 &position) {
         position_ = position;
     }
 
-    void Pong_Ball::setVelocity(glm::vec2 &velocity) {
+    void Pong_Ball::SetVelocity(glm::vec2 &velocity) {
         velocity_ = velocity;
     }
 

@@ -20,7 +20,7 @@ Paddle::Paddle(glm::vec2 &position, glm::vec2 &velocity, glm::vec2 &size, glm::v
     corner_ = position_;
 }
 
-void Paddle::DrewPaddles() {
+void Paddle::DrawPaddles() {
     ci::Rectf box = ci::Rectf(position_, position_ + size_);
     ci::gl::color(ci::Color("blue"));
     ci::gl::drawSolidRect(box);
@@ -51,8 +51,8 @@ void Paddle::SetVelocity(glm::vec2 &velocity) {
 }
 
 bool Paddle::CheckCollisionWithPaddle(finalproject::Pong_Ball &ball) const {
-    glm::vec2 future_pos = ball.getPosition();
-    future_pos += ball.getVelocity();
+    glm::vec2 future_pos = ball.GetPosition();
+    future_pos += ball.GetVelocity();
     if (abs(future_pos.x - position_.x) <= radius_ && abs(future_pos.y - position_.y) <= radius_) {
         ball.UpdateAfterCollision(ball, 1);
     }
