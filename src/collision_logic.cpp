@@ -11,11 +11,14 @@ namespace finalproject {
 
 //Please look at the header file for documentation
 
-CollisionLogic::CollisionLogic(glm::vec2 corner, glm::vec2 size)
-        : corner_(corner), box_size_(size) {}
+CollisionLogic::CollisionLogic(glm::vec2 corner, glm::vec2 size, Paddle paddle)
+        : corner_(corner), box_size_(size) {
+    paddle_ = paddle;
+    left_score_ = 0;
+    right_score_ = 0;
+}
 
 void CollisionLogic::UpdateState() {
-    //std::sort(all_balls.begin(), all_balls.end());
     for (size_t i = 0; i < all_balls.size(); i++) {
         Pong_Ball curr_ball = all_balls.at(i);
         if (i + 1 < all_balls.size()) {
@@ -61,7 +64,7 @@ bool CollisionLogic::IsStickyCollision(Pong_Ball &ball1, Pong_Ball &ball2, int t
     }
 }
 
-void CollisionLogic::WallCollisionsUpdate(Pong_Ball &ball) const {
+void CollisionLogic::WallCollisionsUpdate(Pong_Ball &ball) {
     glm::vec2 future_pos = ball.getPosition();
     future_pos += ball.getVelocity();
     // This if conditional checks collision with first x wall
@@ -69,13 +72,15 @@ void CollisionLogic::WallCollisionsUpdate(Pong_Ball &ball) const {
         if (!CollisionLogic::IsStickyCollision(ball, ball, 2,
                                                glm::vec2(corner_.x, future_pos.y))) {
             ball.UpdateAfterCollision(ball, 1); // update score for right
+            right_score_ = right_score_ + 1;
         }
     }
     // This if conditional checks collision with second x wall
     if (abs(future_pos.x - corner_.x - box_size_.x) <= radius) {
         if (!CollisionLogic::IsStickyCollision(
                 ball, ball, 2, glm::vec2(corner_.x + box_size_.x, future_pos.y))) {
-            ball.UpdateAfterCollision(ball, 1); // update score for left
+            ball.UpdateAfterCollision(ball, 1);
+            left_score_ = left_score_ + 1;
         }
     }
     // This if conditional checks collision with first y wall
@@ -95,9 +100,9 @@ void CollisionLogic::WallCollisionsUpdate(Pong_Ball &ball) const {
 }
 
 void CollisionLogic::PaddleCollisionUpdate(Pong_Ball &ball) const {
-//    if(Paddle::CheckCollisionWithPaddle(ball) == true) {
-//
-//    }
+    if(paddle_.CheckCollisionWithPaddle(ball)) {
+        ball.UpdateAfterCollision(ball, 1);
+    }
 }
 
 void CollisionLogic::AddNewBall(glm::vec2 position, glm::vec2 velocity) {
@@ -107,6 +112,10 @@ void CollisionLogic::AddNewBall(glm::vec2 position, glm::vec2 velocity) {
 
 std::vector<Pong_Ball> CollisionLogic::GetAllBalls() const {
     return all_balls;
+}
+
+Paddle CollisionLogic::GetPaddle() const {
+    return paddle_;
 }
 
     CollisionLogic::CollisionLogic() = default;
