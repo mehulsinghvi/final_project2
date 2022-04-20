@@ -21,7 +21,7 @@ public:
     /**
      * Draws the paddles on both sides on a "slider"
      */
-    void DrewPaddles();
+    void DrawPaddles();
 
     glm::vec2 GetPosition();
 

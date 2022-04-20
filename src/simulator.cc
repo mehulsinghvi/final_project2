@@ -25,9 +25,9 @@ void PongApp::draw() {
   ci::gl::drawStrokedRect(box_);
   for(Pong_Ball balls : logic_.GetAllBalls())  {
       ci::gl::color(ci::Color("yellow"));
-      ci::gl::drawSolidCircle(balls.getPosition(), 10);
+      ci::gl::drawSolidCircle(balls.GetPosition(), 10);
   }
-  logic_.GetPaddle().DrewPaddles();
+    logic_.GetPaddle().DrawPaddles();
 }
 
 void PongApp::update() {

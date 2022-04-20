@@ -25,25 +25,25 @@ public:
      * This the getter for position vector of an atom
      * @return the position vector
      */
-    glm::vec2 getPosition();
+    glm::vec2 GetPosition();
 
     /**
      * This the getter for velocity vector of an atom
      * @return the velocity vector
      */
-    glm::vec2 getVelocity();
+    glm::vec2 GetVelocity();
 
     /**
      * This is the setter for position of an atom
      * @param position
      */
-    void setPosition(glm::vec2 &position);
+    void SetPosition(glm::vec2 &position);
 
     /**
      * This is the setter for velocity of an atom
      * @param position
      */
-    void setVelocity(glm::vec2 &velocity);
+    void SetVelocity(glm::vec2 &velocity);
 
     /**
      * This method updates the velocity of the atom after it collides either with

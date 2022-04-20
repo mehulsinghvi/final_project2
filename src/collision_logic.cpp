@@ -30,18 +30,18 @@ void CollisionLogic::UpdateState() {
         }
         PaddleCollisionUpdate(curr_ball);
         WallCollisionsUpdate(curr_ball);
-        glm::vec2 curr_pos = curr_ball.getPosition();
-        glm::vec2 curr_vel = curr_ball.getVelocity();
+        glm::vec2 curr_pos = curr_ball.GetPosition();
+        glm::vec2 curr_vel = curr_ball.GetVelocity();
         curr_pos += curr_vel;
-        curr_ball.setPosition(curr_pos);
-        curr_ball.setVelocity(curr_vel);
+        curr_ball.SetPosition(curr_pos);
+        curr_ball.SetVelocity(curr_vel);
         all_balls.at(i) = curr_ball;
     }
 }
 
 void CollisionLogic::BallCollisionsUpdate(Pong_Ball &ball, Pong_Ball &second) const {
-    if (2 * radius >= glm::distance(ball.getPosition(), second.getPosition())) {
-        if (!IsStickyCollision(ball, second, 1, ball.getPosition())) {
+    if (2 * radius >= glm::distance(ball.GetPosition(), second.GetPosition())) {
+        if (!IsStickyCollision(ball, second, 1, ball.GetPosition())) {
             ball.UpdateAfterCollision(second, 0);
             second.UpdateAfterCollision(ball, 0); //update
         }
@@ -51,11 +51,11 @@ void CollisionLogic::BallCollisionsUpdate(Pong_Ball &ball, Pong_Ball &second) co
 bool CollisionLogic::IsStickyCollision(Pong_Ball &ball1, Pong_Ball &ball2, int type, glm::vec2 wall_vec) {
     float dotProduct;
     if (type == 1) {
-        dotProduct = glm::dot(ball1.getVelocity() - ball2.getVelocity(),
-                              ball1.getPosition() - ball2.getPosition());
+        dotProduct = glm::dot(ball1.GetVelocity() - ball2.GetVelocity(),
+                              ball1.GetPosition() - ball2.GetPosition());
     }
     if (type == 2) {
-        dotProduct = glm::dot(ball1.getVelocity(), ball1.getPosition() - wall_vec);
+        dotProduct = glm::dot(ball1.GetVelocity(), ball1.GetPosition() - wall_vec);
     }
     if (dotProduct < 0) {
         return false;
@@ -65,8 +65,8 @@ bool CollisionLogic::IsStickyCollision(Pong_Ball &ball1, Pong_Ball &ball2, int t
 }
 
 void CollisionLogic::WallCollisionsUpdate(Pong_Ball &ball) {
-    glm::vec2 future_pos = ball.getPosition();
-    future_pos += ball.getVelocity();
+    glm::vec2 future_pos = ball.GetPosition();
+    future_pos += ball.GetVelocity();
     // This if conditional checks collision with first x wall
     if (abs(future_pos.x - corner_.x) <= radius) {
         if (!CollisionLogic::IsStickyCollision(ball, ball, 2,
