@@ -17,7 +17,7 @@ PongApp::PongApp() {
     glm::vec2 ball_entrance = paddle_corner + glm::vec2 (kMargin * 4, kSize1);
     logic_.AddNewBall(ball_entrance, paddle_velocity);
 }
-
+//resolvinf conflict on git
 void PongApp::draw() {
   ci::Color background_color("black");
   ci::gl::clear(background_color);
