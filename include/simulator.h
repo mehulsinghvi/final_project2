@@ -21,11 +21,12 @@ class PongApp : public ci::app::App {
 
   const int kWindowSize = 875;
   const int kMargin = 100;
-  const int kSize1 = 500;
-  const int kSize2 = 300;
+  const int kSize1 = 10;
+  const int kSize2 = 50;
 
  private:
   CollisionLogic logic_;
+  Paddle paddle_;
   ci::Rectf box_;
 };
 

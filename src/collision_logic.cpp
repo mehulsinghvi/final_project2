@@ -19,6 +19,8 @@ CollisionLogic::CollisionLogic(glm::vec2 corner, glm::vec2 size, Paddle paddle)
 }
 
 void CollisionLogic::UpdateState() {
+    glm::vec2 curr_position = paddle_.GetPosition();
+    paddle_.SetPosition(curr_position);
     for (size_t i = 0; i < all_balls.size(); i++) {
         Pong_Ball curr_ball = all_balls.at(i);
         if (i + 1 < all_balls.size()) {
@@ -116,6 +118,10 @@ std::vector<Pong_Ball> CollisionLogic::GetAllBalls() const {
 
 Paddle CollisionLogic::GetPaddle() const {
     return paddle_;
+}
+
+void CollisionLogic::SetPaddle(Paddle paddle) {
+    paddle_ = paddle;
 }
 
     CollisionLogic::CollisionLogic() = default;

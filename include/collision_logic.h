@@ -43,6 +43,7 @@ namespace finalproject {
          */
         std::vector<Pong_Ball> GetAllBalls() const;
         Paddle GetPaddle() const;
+        void SetPaddle(Paddle paddle);
 
 //        const glm::vec2 KMargin = glm::vec2(20,0);
 //        const glm::vec2 KVelocity = glm::vec2(10,0);

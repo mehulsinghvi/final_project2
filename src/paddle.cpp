@@ -63,8 +63,8 @@ bool Paddle::CheckCollisionWithPaddle(finalproject::Pong_Ball &ball) const {
 }
 
 void Paddle::SlideLeftPaddle(int type) {
-    if(type == 1 && position_.y + size_.y < corner_.y + distance_.y) {
-        position_ += velocity_;
+    if(type == 1 /*&& position_.y + size_.y < corner_.y + distance_.y*/) {
+        position_ += glm::vec2(0, 20);
     }
     if(type == 2 && position_.y > corner_.y ) {
         position_ -= velocity_;
