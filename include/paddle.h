@@ -14,7 +14,7 @@ namespace finalproject {
 
 class Paddle {
 public:
-    Paddle(glm::vec2 &position, glm::vec2 &velocity, glm::vec2 &size, glm::vec2 &distance, float radius);
+    Paddle(glm::vec2 corner, glm::vec2 &position, glm::vec2 &velocity, glm::vec2 &size, glm::vec2 &distance, float radius);
 
     Paddle();
 

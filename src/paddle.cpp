@@ -9,7 +9,7 @@
 
 namespace finalproject {
 
-Paddle::Paddle(glm::vec2 &position, glm::vec2 &velocity, glm::vec2 &size, glm::vec2 &distance, float radius) {
+Paddle::Paddle(glm::vec2 corner, glm::vec2 &position, glm::vec2 &velocity, glm::vec2 &size, glm::vec2 &distance, float radius) {
     position_ = position;
     velocity_ = velocity;
     size_ = size;
@@ -17,7 +17,7 @@ Paddle::Paddle(glm::vec2 &position, glm::vec2 &velocity, glm::vec2 &size, glm::v
     position2_ = position + glm::vec2(distance.x - size.x, 0);
     velocity2_ = velocity;
     radius_ = radius;
-    corner_ = position_;
+    corner_ = corner;
 }
 
 void Paddle::DrawPaddles() {
@@ -63,11 +63,11 @@ bool Paddle::CheckCollisionWithPaddle(finalproject::Pong_Ball &ball) const {
 }
 
 void Paddle::SlideLeftPaddle(int type) {
-    if(type == 1 /*&& position_.y + size_.y < corner_.y + distance_.y*/) {
-        position_ += glm::vec2(0, 20);
-    }
-    if(type == 2 && position_.y > corner_.y ) {
+    if(type == 1 && position_.y > corner_.y /*&& position_.y + size_.y > corner_.y + distance_.y*/) {
         position_ -= velocity_;
+    }
+    if(type == 2 && position_.y + size_.y < corner_.y + distance_.y) {
+        position_ += velocity_;
     }
 }
 

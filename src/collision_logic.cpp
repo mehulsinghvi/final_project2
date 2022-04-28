@@ -19,8 +19,8 @@ CollisionLogic::CollisionLogic(glm::vec2 corner, glm::vec2 size, Paddle paddle)
 }
 
 void CollisionLogic::UpdateState() {
-    glm::vec2 curr_position = paddle_.GetPosition();
-    paddle_.SetPosition(curr_position);
+//    glm::vec2 curr_position = paddle_.GetPosition();
+//    paddle_.SetPosition(curr_position);
     for (size_t i = 0; i < all_balls.size(); i++) {
         Pong_Ball curr_ball = all_balls.at(i);
         if (i + 1 < all_balls.size()) {
@@ -73,7 +73,18 @@ void CollisionLogic::WallCollisionsUpdate(Pong_Ball &ball) {
     if (abs(future_pos.x - corner_.x) <= radius) {
         if (!CollisionLogic::IsStickyCollision(ball, ball, 2,
                                                glm::vec2(corner_.x, future_pos.y))) {
-            ball.UpdateAfterCollision(ball, 1); // update score for right
+//            auto it = find(all_balls.begin(), all_balls.end(), ball);
+//            int idx = 0;
+//            if(it != all_balls.end()) {
+//                idx = it - all_balls.begin();
+//            }
+//            if(all_balls.empty() == false) {
+//                all_balls.erase(all_balls.begin());
+//            }
+            glm::vec2 pos = corner_ + glm::vec2(box_size_.x/2, box_size_.y/2);
+            ball.SetPosition(pos);
+            glm::vec2 vel = glm::vec2(0, 5);
+            ball.SetVelocity(vel);
             right_score_ = right_score_ + 1;
         }
     }
@@ -81,7 +92,10 @@ void CollisionLogic::WallCollisionsUpdate(Pong_Ball &ball) {
     if (abs(future_pos.x - corner_.x - box_size_.x) <= radius) {
         if (!CollisionLogic::IsStickyCollision(
                 ball, ball, 2, glm::vec2(corner_.x + box_size_.x, future_pos.y))) {
-            ball.UpdateAfterCollision(ball, 1);
+            glm::vec2 pos = corner_ + glm::vec2(box_size_.x/2, box_size_.y/2);
+            ball.SetPosition(pos);
+            glm::vec2 vel = glm::vec2(0, 5);
+            ball.SetVelocity(vel);
             left_score_ = left_score_ + 1;
         }
     }
@@ -122,6 +136,15 @@ Paddle CollisionLogic::GetPaddle() const {
 
 void CollisionLogic::SetPaddle(Paddle paddle) {
     paddle_ = paddle;
+}
+
+size_t CollisionLogic::GetScore(int type) {
+    if(type == 1) {
+        return left_score_;
+    }
+    else {
+        return right_score_;
+    }
 }
 
     CollisionLogic::CollisionLogic() = default;

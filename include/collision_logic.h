@@ -45,6 +45,8 @@ namespace finalproject {
         Paddle GetPaddle() const;
         void SetPaddle(Paddle paddle);
 
+        size_t GetScore(int type);
+
 //        const glm::vec2 KMargin = glm::vec2(20,0);
 //        const glm::vec2 KVelocity = glm::vec2(10,0);
 //        const glm::vec2 KSize = glm::vec2(3,10);
