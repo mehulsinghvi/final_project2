@@ -116,9 +116,10 @@ void CollisionLogic::WallCollisionsUpdate(Pong_Ball &ball) {
 }
 
 void CollisionLogic::PaddleCollisionUpdate(Pong_Ball &ball) const {
-    if(paddle_.CheckCollisionWithPaddle(ball)) {
-        ball.UpdateAfterCollision(ball, 1);
-    }
+//    if(paddle_.CheckCollisionWithPaddle(ball)) {
+//        ball.UpdateAfterCollision(ball, 1);
+//    }
+    paddle_.CheckCollisionWithPaddle(ball);
 }
 
 void CollisionLogic::AddNewBall(glm::vec2 position, glm::vec2 velocity) {
