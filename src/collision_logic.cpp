@@ -7,6 +7,7 @@
 #include <glm/geometric.hpp>
 #include <iostream>
 
+
 namespace finalproject {
 
 //Please look at the header file for documentation
@@ -16,6 +17,7 @@ CollisionLogic::CollisionLogic(glm::vec2 corner, glm::vec2 size, Paddle paddle)
     paddle_ = paddle;
     left_score_ = 0;
     right_score_ = 0;
+    //sound = cinder::audio::Voice::create(cinder::audio::load(ci::app::loadAsset("pong_side.mp3")));
 }
 
 void CollisionLogic::UpdateState() {
@@ -146,6 +148,12 @@ size_t CollisionLogic::GetScore(int type) {
     else {
         return right_score_;
     }
+}
+
+void CollisionLogic::RestartGame() {
+    left_score_ = 0;
+    right_score_ = 0;
+    all_balls.erase(all_balls.begin(), all_balls.end());
 }
 
     CollisionLogic::CollisionLogic() = default;

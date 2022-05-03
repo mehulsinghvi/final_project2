@@ -8,6 +8,7 @@
 #include <vector>
 #include "pong_ball.h"
 #include "paddle.h"
+//#include "simulator.h"
 
 namespace finalproject {
     class CollisionLogic {
@@ -46,11 +47,7 @@ namespace finalproject {
         void SetPaddle(Paddle paddle);
 
         size_t GetScore(int type);
-
-//        const glm::vec2 KMargin = glm::vec2(20,0);
-//        const glm::vec2 KVelocity = glm::vec2(10,0);
-//        const glm::vec2 KSize = glm::vec2(3,10);
-//        const glm::vec2 KDistance = glm::vec2(500,0);
+        void RestartGame();
 
     private:
         std::vector<Pong_Ball> all_balls;
@@ -65,6 +62,7 @@ namespace finalproject {
 
         size_t left_score_;
         size_t right_score_;
+        //cinder::audio::VoiceRef sound;
 
         /**
          * This helper functions return false if the collision is actually happening and helps avoid infinite
