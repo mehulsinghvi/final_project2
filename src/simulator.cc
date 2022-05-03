@@ -6,17 +6,17 @@ namespace finalproject {
 PongApp::PongApp() {
     ball_counter = 0;
     ci::app::setWindowSize(kWindowSize, kWindowSize);
-    glm::vec2 corner = glm::vec2 (kMargin, kMargin  - kSize1);
+    glm::vec2 corner = glm::vec2 (kMargin, kMargin * 2 - kSize1);
     glm::vec2 size = glm::vec2(kMargin * 7, kMargin * 4 + kSize1*2);
-    glm::vec2 paddle_corner = glm::vec2 (kMargin + kSize2, kMargin + kSize1);
+    glm::vec2 paddle_corner = glm::vec2 (kMargin + kSize2, kMargin * 2 + kSize1);
     glm::vec2 paddle_velocity = glm::vec2 (0, kSize1 * 2);
     glm::vec2 paddle_size = glm::vec2 (kSize1 , kSize2 * 2);
     glm::vec2 paddle_distance = glm::vec2 (kMargin * 6 , kMargin * 4);
-    glm::vec2 corner_pad = glm::vec2(0, kMargin);
+    glm::vec2 corner_pad = glm::vec2(0, kMargin * 2);
     Paddle paddle = Paddle(corner_pad, paddle_corner, paddle_velocity, paddle_size, paddle_distance, 4);
     logic_ = CollisionLogic(corner, size, paddle);
     box_ = ci::Rectf(corner, corner + size);
-    glm::vec2 ball_entrance = paddle_corner + glm::vec2 (kMargin * 4, kSize1);
+    glm::vec2 ball_entrance = paddle_corner + glm::vec2 (kMargin * 4, kMargin * 4);
     glm::vec2 ball_velocity = glm::vec2 (kSize1, kSize1);
     logic_.AddNewBall(ball_entrance, ball_velocity);
     paddle_ = paddle;
@@ -41,8 +41,8 @@ void PongApp::draw() {
         }
         return;
     }
-  ci::Color background_color("black");
-  ci::gl::clear(background_color);
+//  ci::Color background_color("black");
+//  ci::gl::clear(background_color);
   ci::gl::color(ci::Color("white"));
   ci::gl::drawStrokedRect(box_);
   for(Pong_Ball balls : logic_.GetAllBalls())  {
@@ -76,7 +76,7 @@ void PongApp::keyDown(cinder::app::KeyEvent event) {
     else if(event.getCode() == KeyEvent::KEY_CAPSLOCK) {
         ball_counter++;
         glm::vec2 paddle_corner = glm::vec2 (kMargin + kSize2, kMargin + kSize1);
-        glm::vec2 ball_entrance = paddle_corner + glm::vec2 (kMargin * 4, kSize1);
+        glm::vec2 ball_entrance = paddle_corner + glm::vec2 (kMargin * 4, kMargin * 4);
         int rand1 = rand() % 11 + (-5);
         int rand2 = rand() % 11 + (-5);
         glm::vec2 ball_velocity = glm::vec2 (rand1, rand2);
@@ -100,7 +100,7 @@ void PongApp::setup() {
     auto tempImg = loadImage(ci::app::loadAsset("img.png"));
     image = ci::gl::Texture2d::create(tempImg);
     this->top_left_corner = ci::vec2(0, 0); // <-- whatever coordinates you want
-    this->bottomRightCorner = ci::vec2(top_left_corner.x + image->getWidth(), top_left_corner.y + image->getHeight());
+    this->bottomRightCorner = ci::vec2(top_left_corner.x + kWindowSize, top_left_corner.y + kWindowSize);
 }
 
 
