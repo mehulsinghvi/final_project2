@@ -5,13 +5,14 @@ namespace finalproject {
 
 PongApp::PongApp() {
   ci::app::setWindowSize(kWindowSize, kWindowSize);
-    glm::vec2 corner = glm::vec2 (kMargin, kMargin);
-    glm::vec2 size = glm::vec2(kMargin * 7, kMargin * 7);
+    glm::vec2 corner = glm::vec2 (kMargin, kMargin  - kSize1);
+    glm::vec2 size = glm::vec2(kMargin * 7, kMargin * 4 + kSize1*2);
     glm::vec2 paddle_corner = glm::vec2 (kMargin + kSize2, kMargin + kSize1);
-    glm::vec2 paddle_velocity = glm::vec2 (0, kSize1/2);
-    glm::vec2 paddle_size = glm::vec2 (kSize1 , kSize2 * 3);
-    glm::vec2 paddle_distance = glm::vec2 (kMargin * 6, kMargin * 6);
-    Paddle paddle = Paddle(paddle_corner, paddle_corner, paddle_velocity, paddle_size, paddle_distance, 10);
+    glm::vec2 paddle_velocity = glm::vec2 (0, kSize1 * 2);
+    glm::vec2 paddle_size = glm::vec2 (kSize1 , kSize2 * 2);
+    glm::vec2 paddle_distance = glm::vec2 (kMargin * 6 , kMargin * 4);
+    glm::vec2 corner_pad = glm::vec2(0, kMargin);
+    Paddle paddle = Paddle(corner_pad, paddle_corner, paddle_velocity, paddle_size, paddle_distance, 4);
     logic_ = CollisionLogic(corner, size, paddle);
     box_ = ci::Rectf(corner, corner + size);
     glm::vec2 ball_entrance = paddle_corner + glm::vec2 (kMargin * 4, kSize1);
@@ -27,13 +28,13 @@ void PongApp::draw() {
   ci::gl::drawStrokedRect(box_);
   for(Pong_Ball balls : logic_.GetAllBalls())  {
       ci::gl::color(ci::Color("yellow"));
-      ci::gl::drawSolidCircle(balls.GetPosition(), 10);
+      ci::gl::drawSolidCircle(balls.GetPosition(), 5);
   }
   paddle_.DrawPaddles();
   glm::vec2 titleLoc = glm::vec2(box_.x1 + (box_.x2 - box_.x1) / 2, box_.y1 + 50);
-  ci::gl::drawStringCentered("Right: " + std::to_string(logic_.GetScore(1)), titleLoc, ci::Color("red"), ci::Font("helvetica", 30));
+  ci::gl::drawStringCentered("Right: " + std::to_string(logic_.GetScore(2)), titleLoc, ci::Color("red"), ci::Font("helvetica", 30));
   glm::vec2 titleLoc2 = glm::vec2(box_.x1 + (box_.x2 - box_.x1) / 2, box_.y2 - 50);
-  ci::gl::drawStringCentered("Left: " + std::to_string(logic_.GetScore(2)), titleLoc2, ci::Color("blue"), ci::Font("helvetica", 30));
+  ci::gl::drawStringCentered("Left: " + std::to_string(logic_.GetScore(1)), titleLoc2, ci::Color("blue"), ci::Font("helvetica", 30));
 }
 
 void PongApp::update() {

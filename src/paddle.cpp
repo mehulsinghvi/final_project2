@@ -64,19 +64,19 @@ namespace finalproject {
     }
 
     void Paddle::SlideLeftPaddle(int type) {
-        if(type == 1 && position_.y > corner_.y /*&& position_.y + size_.y > corner_.y + distance_.y*/) {
+        if(type == 1 && position_.y >= corner_.y /*&& position_.y + size_.y > corner_.y + distance_.y*/) {
             position_ -= velocity_;
         }
-        if(type == 2 && position_.y + size_.y < corner_.y + distance_.y) {
+        if(type == 2 && position_.y + size_.y <= corner_.y + distance_.y) {
             position_ += velocity_;
         }
     }
 
     void Paddle::SlideRightPaddle(int type) {
-        if(type == 1 && position2_.y + size_.y < corner_.y + distance_.y) {
+        if(type == 1 && position2_.y + size_.y <= corner_.y + distance_.y) {
             position2_ += velocity_;
         }
-        if(type == 2 && position2_.y > corner_.y ) {
+        if(type == 2 && position2_.y >= corner_.y ) {
             position2_ -= velocity_;
         }
     }
