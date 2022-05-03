@@ -19,6 +19,7 @@ PongApp::PongApp() {
     glm::vec2 ball_velocity = glm::vec2 (kSize1, kSize1);
     logic_.AddNewBall(ball_entrance, ball_velocity);
     paddle_ = paddle;
+
 }
 //resolvinf conflict on git
 void PongApp::draw() {
