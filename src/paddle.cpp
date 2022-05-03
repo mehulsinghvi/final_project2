@@ -54,7 +54,7 @@ namespace finalproject {
 //    glm::vec2 future_pos = ball.GetPosition();
 //    future_pos += ball.GetVelocity();
         glm::vec2 future_pos = ball.GetPosition();
-        if (abs(future_pos.x - position_.x) <= radius_ && (future_pos.y - position_.y - size_.y) <= radius_ && (future_pos.y - position_.y) >= radius_) { //problem here
+        if (abs(future_pos.x - position_.x - size_.x) <= radius_ && (future_pos.y - position_.y - size_.y) <= radius_ && (future_pos.y - position_.y) >= radius_) { //problem here
             ball.UpdateAfterCollision(ball, 1);
         }
         if (abs(future_pos.x - position2_.x) <= radius_ && (future_pos.y - position2_.y - size_.y) <= radius_ && (future_pos.y - position2_.y) >= radius_) {

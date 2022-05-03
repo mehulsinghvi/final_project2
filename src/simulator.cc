@@ -4,7 +4,8 @@ using cinder::app::KeyEvent;
 namespace finalproject {
 
 PongApp::PongApp() {
-  ci::app::setWindowSize(kWindowSize, kWindowSize);
+    ball_counter = 0;
+    ci::app::setWindowSize(kWindowSize, kWindowSize);
     glm::vec2 corner = glm::vec2 (kMargin, kMargin  - kSize1);
     glm::vec2 size = glm::vec2(kMargin * 7, kMargin * 4 + kSize1*2);
     glm::vec2 paddle_corner = glm::vec2 (kMargin + kSize2, kMargin + kSize1);
@@ -19,10 +20,27 @@ PongApp::PongApp() {
     glm::vec2 ball_velocity = glm::vec2 (kSize1, kSize1);
     logic_.AddNewBall(ball_entrance, ball_velocity);
     paddle_ = paddle;
-
 }
 //resolvinf conflict on git
 void PongApp::draw() {
+    ci::gl::draw(image, ci::Rectf(top_left_corner, bottomRightCorner));
+    if(ball_counter >= 30) {
+        ci::Color background_color("black");
+        ci::gl::clear(background_color);
+        ci::gl::color(ci::Color("black"));
+        ci::gl::drawSolidRect(box_);
+        glm::vec2 titleLoc = glm::vec2(box_.x1 + (box_.x2 - box_.x1) / 2, box_.y1 + 100);
+        if(logic_.GetScore(1) > logic_.GetScore(2)) {
+            ci::gl::drawStringCentered("Left won!", titleLoc, ci::Color("pink"), ci::Font("atari", 100));
+        }
+        else if(logic_.GetScore(1) < logic_.GetScore(2)) {
+            ci::gl::drawStringCentered("Right won!", titleLoc, ci::Color("pink"), ci::Font("atari", 100));
+        }
+        else {
+            ci::gl::drawStringCentered("No winner!", titleLoc, ci::Color("pink"), ci::Font("helvetica", 100));
+        }
+        return;
+    }
   ci::Color background_color("black");
   ci::gl::clear(background_color);
   ci::gl::color(ci::Color("white"));
@@ -39,7 +57,9 @@ void PongApp::draw() {
 }
 
 void PongApp::update() {
-    //logic_.SetPaddle(paddle_);
+    if(ball_counter >= 30) {
+        return;
+    }
   logic_.UpdateState();
 }
 
@@ -54,24 +74,33 @@ void PongApp::keyDown(cinder::app::KeyEvent event) {
         logic_.SetPaddle(paddle_);
     }
     else if(event.getCode() == KeyEvent::KEY_CAPSLOCK) {
+        ball_counter++;
         glm::vec2 paddle_corner = glm::vec2 (kMargin + kSize2, kMargin + kSize1);
         glm::vec2 ball_entrance = paddle_corner + glm::vec2 (kMargin * 4, kSize1);
-        int rand1 = rand() % 5 + (-5);
-        int rand2 = rand() % 5 + (-5);
+        int rand1 = rand() % 11 + (-5);
+        int rand2 = rand() % 11 + (-5);
         glm::vec2 ball_velocity = glm::vec2 (rand1, rand2);
         logic_.AddNewBall(ball_entrance, ball_velocity);
     }
 }
 
-void PongApp::mouseDown(cinder::app::MouseEvent event) {
-    if(event.isRight() && event.isShiftDown()) {
+void PongApp::mouseWheel(cinder::app::MouseEvent event) {
+    if(event.getWheelIncrement() > 0 && event.isShiftDown()) {
         paddle_.SlideRightPaddle(1);
         logic_.SetPaddle(paddle_);
     }
-    else if(event.isLeft() && event.isShiftDown()) {
+    else if(event.getWheelIncrement() < 0  && event.isShiftDown()) {
         paddle_.SlideRightPaddle(2);
         logic_.SetPaddle(paddle_);
     }
+}
+
+void PongApp::setup() {
+    //this was copied from miguel fernandez's campuswire answer
+    auto tempImg = loadImage(ci::app::loadAsset("img.png"));
+    image = ci::gl::Texture2d::create(tempImg);
+    this->top_left_corner = ci::vec2(0, 0); // <-- whatever coordinates you want
+    this->bottomRightCorner = ci::vec2(top_left_corner.x + image->getWidth(), top_left_corner.y + image->getHeight());
 }
 
 
