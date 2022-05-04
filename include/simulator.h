@@ -14,6 +14,7 @@ class PongApp : public ci::app::App {
  public:
   PongApp();
 
+  // overrides all the cinder display functions and input keys
   void setup() override;
   void draw() override;
   void update() override;
@@ -33,7 +34,7 @@ class PongApp : public ci::app::App {
   size_t ball_counter;
   size_t add_new_ball_;
 
-  //this was copied from miguel fernandez's campuswire answer
+  //this was inspired by miguel fernandez's campuswire answer
   ci::vec2 top_left_corner;
   ci::vec2 bottomRightCorner;
   ci::gl::Texture2dRef image;
@@ -42,7 +43,5 @@ class PongApp : public ci::app::App {
   bool start_;
   ci::Font arcade_font_;
   ci::Font arcade_font_2_;
-
 };
-
 }  // namespace finalproject
