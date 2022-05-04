@@ -42,7 +42,4 @@ Game can be restarted by right-clicking the "restart" button or using the space 
 | `1`                                          | Start Game                                                  |
 
 ---
-## Some Screenshots
-![](C:\Users\mehul\Downloads\game screen.png)
-![](C:\Users\mehul\Downloads\aaaaaa.png)
-![](C:\Users\mehul\Downloads\aaaaaaaaaaaa.png)
+
