@@ -9,6 +9,7 @@
 #include "pong_ball.h"
 #include "paddle.h"
 //#include "simulator.h"
+#include "cinder/audio/Voice.h"
 
 namespace finalproject {
     class CollisionLogic {
@@ -62,7 +63,8 @@ namespace finalproject {
 
         size_t left_score_;
         size_t right_score_;
-        //cinder::audio::VoiceRef sound;
+        cinder::audio::VoiceRef sound_wall_;
+        cinder::audio::VoiceRef sound_pad_;
 
         /**
          * This helper functions return false if the collision is actually happening and helps avoid infinite

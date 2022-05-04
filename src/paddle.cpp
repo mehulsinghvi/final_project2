@@ -53,12 +53,18 @@ namespace finalproject {
     bool Paddle::CheckCollisionWithPaddle(finalproject::Pong_Ball &ball) const {
 //    glm::vec2 future_pos = ball.GetPosition();
 //    future_pos += ball.GetVelocity();
+        bool collided = false;
         glm::vec2 future_pos = ball.GetPosition();
         if (abs(future_pos.x - position_.x - size_.x) <= radius_ && (future_pos.y - position_.y - size_.y) <= radius_ && (future_pos.y - position_.y) >= radius_) { //problem here
             ball.UpdateAfterCollision(ball, 1);
+            collided = true;
         }
         if (abs(future_pos.x - position2_.x) <= radius_ && (future_pos.y - position2_.y - size_.y) <= radius_ && (future_pos.y - position2_.y) >= radius_) {
             ball.UpdateAfterCollision(ball, 1);
+            collided = true;
+        }
+        if(collided) {
+            return true;
         }
         return false;
     }

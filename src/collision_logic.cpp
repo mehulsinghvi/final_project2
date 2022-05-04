@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <glm/geometric.hpp>
 #include <iostream>
+#include <cinder/app/AppBase.h>
 
 
 namespace finalproject {
@@ -17,7 +18,8 @@ CollisionLogic::CollisionLogic(glm::vec2 corner, glm::vec2 size, Paddle paddle)
     paddle_ = paddle;
     left_score_ = 0;
     right_score_ = 0;
-    //sound = cinder::audio::Voice::create(cinder::audio::load(ci::app::loadAsset("pong_side.mp3")));
+    sound_wall_ = cinder::audio::Voice::create(cinder::audio::load(ci::app::loadAsset("pong_side.mp3")));
+    sound_pad_ = cinder::audio::Voice::create(cinder::audio::load(ci::app::loadAsset("pong_pad.mp3")));
 }
 
 void CollisionLogic::UpdateState() {
@@ -75,19 +77,14 @@ void CollisionLogic::WallCollisionsUpdate(Pong_Ball &ball) {
     if (abs(future_pos.x - corner_.x) <= radius) {
         if (!CollisionLogic::IsStickyCollision(ball, ball, 2,
                                                glm::vec2(corner_.x, future_pos.y))) {
-//            auto it = find(all_balls.begin(), all_balls.end(), ball);
-//            int idx = 0;
-//            if(it != all_balls.end()) {
-//                idx = it - all_balls.begin();
-//            }
-//            if(all_balls.empty() == false) {
-//                all_balls.erase(all_balls.begin());
-//            }
             glm::vec2 pos = corner_ + glm::vec2(box_size_.x/2, box_size_.y/2);
             ball.SetPosition(pos);
             glm::vec2 vel = glm::vec2(0, 5);
             ball.SetVelocity(vel);
             right_score_ = right_score_ + 1;
+            sound_wall_->stop();
+            sound_pad_->stop();
+            sound_wall_->start();
         }
     }
     // This if conditional checks collision with second x wall
@@ -99,6 +96,9 @@ void CollisionLogic::WallCollisionsUpdate(Pong_Ball &ball) {
             glm::vec2 vel = glm::vec2(0, 5);
             ball.SetVelocity(vel);
             left_score_ = left_score_ + 1;
+            sound_wall_->stop();
+            sound_pad_->stop();
+            sound_wall_->start();
         }
     }
     // This if conditional checks collision with first y wall
@@ -118,10 +118,10 @@ void CollisionLogic::WallCollisionsUpdate(Pong_Ball &ball) {
 }
 
 void CollisionLogic::PaddleCollisionUpdate(Pong_Ball &ball) const {
-//    if(paddle_.CheckCollisionWithPaddle(ball)) {
-//        ball.UpdateAfterCollision(ball, 1);
-//    }
-    paddle_.CheckCollisionWithPaddle(ball);
+    if(paddle_.CheckCollisionWithPaddle(ball)) {
+        sound_pad_->start();
+    }
+
 }
 
 void CollisionLogic::AddNewBall(glm::vec2 position, glm::vec2 velocity) {
